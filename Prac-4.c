@@ -43,7 +43,7 @@ int main()
     Node *head = NULL;
 
     for (int i = 0; i < 10; i++)
-        insertAtStart(&head, i * 15);
+        insertAtStart(&head, i * 15, 0);
 
     traverse(head);
     printf("No. of Nodes: %d\n", count(head));
