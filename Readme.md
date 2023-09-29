@@ -34,7 +34,7 @@ pacman -S mingw-w64-x86_64-gdb
 4. Almost done... don't forget to add the **mingw bin** folder as an environment variable. 
 In most cases it will be `c:\msys2\mingw64\bin`.
 
-5. Finally, confirm that everything is working properly by [checking for compiler](#compiler)
+5. Finally, confirm that everything is working properly by [checking for compiler](#compiler-)
 #### Compiling ...
 This is the basic template to compile a C file: 
 ```
