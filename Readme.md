@@ -69,10 +69,10 @@ If you do not have a compiler, follow these steps:
 
 4. Almost done... don't forget to add the **mingw bin** folder as an environment variable.
 In most cases it will be `c:\msys64\mingw64\bin`.
-![env_var](./media//env_var.jpg)
+  ![env_var](./media//env_var.jpg)
 
-5. Finally, confirm that everything is working properly by running `gcc --version`.
-![gcc_ver](./media//gcc_ver.jpg)
+6. Finally, confirm that everything is working properly by running `gcc --version`.
+  ![gcc_ver](./media//gcc_ver.jpg)
 
 ## Installation
 
