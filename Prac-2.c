@@ -2,7 +2,7 @@
 
 // Headers
 #include <string.h>
-#include "LL.h"
+#include "LL.h" // required
 
 // Declarations
 int opsMenu(char *);
@@ -26,10 +26,10 @@ int main()
 
         switch (choice)
         {
-        case 1:
-        case 2:
-            mainMenu(choice == 2);
-            break;
+        case 1: // same menu for both
+        case 2: // linear & circular
+            mainMenu(choice == 2); 
+            break; 
 
         case 3:
             exit(0);
@@ -53,7 +53,7 @@ void mainMenu(bool isCircular)
 
         switch (op)
         {
-        case 1:
+        case 1: // Insert
             pos = posMenu("Insert");
 
             if (pos < 0 || pos > 3)
@@ -64,18 +64,18 @@ void mainMenu(bool isCircular)
 
             switch (pos)
             {
-            case 1:
+            case 1: // Insert at Start
                 insertAtStart(&list, data, isCircular);
                 break;
 
-            case 2:
+            case 2: // Insert After ?
                 traverse(list);
                 printf("\nInsert Node After (value): ");
                 scanf("%d", &after);
                 insertAfter(&list, data, after, isCircular);
                 break;
 
-            case 3:
+            case 3: // Insert at End
                 insertAtEnd(&list, data, isCircular);
                 break;
 
@@ -85,7 +85,7 @@ void mainMenu(bool isCircular)
             traverse(list);
             break;
 
-        case 2:
+        case 2: // Remove
             pos = posMenu("Remove");
 
             if (pos < 0 || pos > 3)
@@ -93,17 +93,17 @@ void mainMenu(bool isCircular)
 
             switch (pos)
             {
-            case 1:
+            case 1: // Remove from Start
                 removeFromStart(&list, isCircular);
                 break;
 
-            case 2:
+            case 2: // Remove After ?
                 printf("\nRemove Node After (value): ");
                 scanf("%d", &after);
                 removeAfter(&list, after, isCircular);
                 break;
 
-            case 3:
+            case 3: // Remove from End
                 removeFromEnd(&list, isCircular);
                 break;
 
@@ -114,7 +114,7 @@ void mainMenu(bool isCircular)
 
             break;
 
-        case 3:
+        case 3:// Traverse
             traverse(list);
             break;
 
