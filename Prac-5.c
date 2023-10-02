@@ -3,6 +3,7 @@
 // Headers
 #include <stdio.h>
 #include <stdlib.h>
+#include "headers/Utils.h"
 
 int N;      // Size of Stack
 int top;    // Top of Stack
@@ -48,8 +49,7 @@ void pop()
 
 int main()
 {
-    printf("Enter Size of Stack: ");
-    scanf("%d", &N);
+    N = input("Enter Size of Stack: ");
 
     top = -1;                               // initialise top
     stack = (int *)malloc(N * sizeof(int)); // dynamic array
@@ -59,25 +59,18 @@ int main()
     do
     {
         system("cls");
-        printf("Stack Operations[top: %d, size: %d]:\n"
-               "1. Push\n"
-               "2. Pop\n"
-               "3. Top\n"
-               "4. Exit\n"
-               "Select> ",
-               top, N);
-        scanf("%d", &choice);
+        choice = input("Stack Operations:\n"
+                       "1. Push\n"
+                       "2. Pop\n"
+                       "3. Top\n"
+                       "4. Exit\n"
+                       "Select> ");
 
         switch (choice)
         {
         case 1:
-        {
-            int val;
-            printf("Enter Value to add: ");
-            scanf("%d", &val);
-            push(val);
-        }
-        break;
+            push(input("Enter Value to add: "));
+            break;
 
         case 2:
             pop();

@@ -2,11 +2,11 @@
 
 // Headers
 #include <string.h>
-#include "LL.h" // required
+#include "headers/LL.h" // required
+#include "headers/Utils.h"
 
 // Declarations
 int opsMenu(char *);
-int posMenu(char *);
 void mainMenu(bool);
 
 // Main
@@ -16,20 +16,18 @@ int main()
     do
     {
         system("cls");
-        printf(
+        choice = input(
             "Select List Type:\n"
             "1. Linear Single Linked List.\n"
             "2. Circular Single Linked List.\n"
             "3. Exit.\n");
 
-        scanf("%d", &choice);
-
         switch (choice)
         {
         case 1: // same menu for both
         case 2: // linear & circular
-            mainMenu(choice == 2); 
-            break; 
+            mainMenu(choice == 2);
+            break;
 
         case 3:
             exit(0);
@@ -59,8 +57,7 @@ void mainMenu(bool isCircular)
             if (pos < 0 || pos > 3)
                 continue;
 
-            printf("\nEnter Data: ");
-            scanf("%d", &data);
+            data = input("\nEnter Data: ");
 
             switch (pos)
             {
@@ -70,8 +67,7 @@ void mainMenu(bool isCircular)
 
             case 2: // Insert After ?
                 traverse(list);
-                printf("\nInsert Node After (value): ");
-                scanf("%d", &after);
+                after = input("\nInsert Node After (value): ");
                 insertAfter(&list, data, after, isCircular);
                 break;
 
@@ -98,8 +94,7 @@ void mainMenu(bool isCircular)
                 break;
 
             case 2: // Remove After ?
-                printf("\nRemove Node After (value): ");
-                scanf("%d", &after);
+                after = input("\nRemove Node After (value): ");
                 removeAfter(&list, after, isCircular);
                 break;
 
@@ -114,7 +109,7 @@ void mainMenu(bool isCircular)
 
             break;
 
-        case 3:// Traverse
+        case 3: // Traverse
             traverse(list);
             break;
 
@@ -137,31 +132,11 @@ void mainMenu(bool isCircular)
 /// @return Operation choice[1-3]: Insert | Remove | Traverse etc.
 int opsMenu(char *listType)
 {
-    int choice;
     printf("%s Single Linked List Menu:\n", listType);
-    printf(
+    return input(
         "1. Insert\n"
         "2. Remove\n"
         "3. Traverse\n"
         "4. Back\n"
         "5. Exit\n");
-    scanf("%d", &choice);
-    return choice;
-}
-
-/// @brief Insert/Remove Position Menu
-/// @param operation Operation Type: Insert | Remove
-/// @return Position choice[1-3]: start | index | end
-int posMenu(char *operation)
-{
-    int choice;
-    system("cls");
-    printf("%s:\n", operation);
-    printf(
-        "1. At the start\n"
-        "2. At given index\n"
-        "3. At the end\n"
-        "4. Back\n");
-    scanf("%d", &choice);
-    return choice;
 }

@@ -1,6 +1,6 @@
 // P4: Wap to count no. of nodes & reverse LL.
 
-#include "LL.h"
+#include "headers/LL.h"
 
 /// @brief Count no. of nodes in the Linked List
 /// @param head Ptr to head of Linked List
@@ -30,9 +30,24 @@ void reverse(Node **head)
 
     while (cur)
     {
+        // save next node
+        //  NULL   [Node A]->[Node B]->NULL
+        // (prev)   (cur)     (next)
         next = cur->link;
+
+        // reverse current node link
+        //  NULL <-[Node A]  [Node B]->NULL
+        // (prev)   (cur)     (next)
         cur->link = prev;
+
+        // update previous node
+        //  NULL <-[Node A]  [Node B]->NULL
+        //       (prev, cur)  (next)
         prev = cur;
+
+        // update current node
+        // [Node A]<-[Node A]  [Node B]->NULL
+        //            (prev)  (cur, next)
         cur = next;
     }
     *head = prev;

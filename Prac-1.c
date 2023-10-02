@@ -4,6 +4,8 @@
 #include <stdlib.h>  // for malloc
 #include <stdbool.h> // for boolean
 
+#include "headers/Utils.h"
+
 int N;      // Max Size
 int end;    // Current end
 int *array; // Dynamic Allocation
@@ -26,8 +28,6 @@ void insertElemAt(int, int);
 void removeElemFrom(int);
 
 void mainMenu();
-int posMenu(char *);
-int input(char *);
 // End - Declarations
 
 // ---------- Main ----------
@@ -51,111 +51,6 @@ int main()
 // End - Main
 
 // ---------- Definitions ----------
-
-/// @brief Shift Array elements to the right.
-/// @param from Shift from this index.
-void rShift(int from)
-{
-    for (int i = end; i >= from; i--)
-        array[i + 1] = array[i];
-}
-
-/// @brief Shift Array elements to the left.
-/// @param till Shift till this index.
-void lShift(int till)
-{
-    for (int i = till; i <= end; i++)
-        array[i] = array[i + 1];
-}
-
-/// @brief Prints the array
-void traverse()
-{
-    for (int i = 0; i <= end; i++)
-        printf("%d ", array[i]);
-    printf("\n");
-}
-
-/// @brief Search for item linearly.
-/// @param item Item to be search.
-/// @return Index of item, if found. Else -1.
-int linearSearch(int item)
-{
-    for (int i = 0; i <= end; i++)
-        if (array[i] == item)
-            return i;
-
-    return -1;
-}
-
-void selectionSort()
-{
-    int min;
-    for (int i = 0; i <= end; i++)
-    {
-        min = i; // assume as minimum
-
-        for (int j = i + 1; j <= end; j++)
-            if (array[j] < array[min]) // smaller element found,
-                min = j;               // update min.
-
-        // swap minimum element
-        int temp = array[i];
-        array[i] = array[min];
-        array[min] = temp;
-    }
-}
-
-/// @brief Insert new element in the array.
-/// @param elem Element to be inserted.
-/// @param index Insert at this index.
-void insertElemAt(int elem, int index)
-{
-    // Array is Full
-    if (end == N - 1)
-    {
-        printf("Error: Max Size Reached.\n");
-        return;
-    }
-
-    // Insert at End (no shift required)
-    if (index > end)
-        array[++end] = elem;
-
-    // Insert at Index (shift required)
-    else
-    {
-        rShift(index);       // make space for new element
-        array[index] = elem; // insert at index
-        end++;               // update end
-    }
-}
-
-/// @brief Remove Element from the array.
-/// @param index Remove from this index.
-void removeElemFrom(int index)
-{
-    // Array Empty
-    if (end == -1)
-    {
-        printf("Error: Already Empty.\n");
-        return;
-    }
-
-    // Invalid index
-    else if (index < 0 || index > end)
-    {
-        printf("Error: Invalid Index(%d).\n", index);
-        return;
-    }
-
-    // Shift left if index is not end
-    if (index != end)
-        lShift(index);
-
-    end--;
-}
-
 /// @brief Menu Driven Code
 void mainMenu()
 {
@@ -225,7 +120,7 @@ void mainMenu()
                 break;
 
             case 2: // Remove from Index
-                index = input("Enter index to insert at: ");
+                index = input("Enter index to remove from: ");
                 removeElemFrom(index);
                 break;
 
@@ -243,10 +138,11 @@ void mainMenu()
             break;
 
         case 4: // Search
-            index = linearSearch(input("Enter element to search: "));
+            elem = input("Enter element to search: ");
+            index = linearSearch(elem);
 
             if (index == -1) // not found
-                printf("%d not found.\n");
+                printf("%d not found.\n", elem);
 
             else // found
                 printf("%d found at: %d.\n",
@@ -268,30 +164,113 @@ void mainMenu()
     } while (choice);
 }
 
-/// @brief Insert/Remove Options.
-/// @param operation Operation Name: Insert or Remove.
-/// @return Selected choice.
-int posMenu(char *operation)
+/// @brief Shift Array elements to the right.
+/// @param from Shift from this index.
+void rShift(int from)
 {
-    system("cls");
-    printf("%s:\n", operation);
-
-    return input("1. at the start.\n"
-                 "2. at given index.\n"
-                 "3. at the end.\n"
-                 "4. Back\n"
-                 "5. Exit\n"
-                 "Select: ");
+    for (int i = end; i >= from; i--)
+        array[i + 1] = array[i];
 }
 
-/// @brief Display prompt and take int input.
-/// @param message Message to display.
-/// @return Int Input.
-int input(char *message)
+/// @brief Shift Array elements to the left.
+/// @param till Shift till this index.
+void lShift(int till)
 {
-    int inp;
-    printf("%s", message);
-    scanf("%d", &inp);
-    return inp;
+    for (int i = till; i <= end; i++)
+        array[i] = array[i + 1];
+}
+
+/// @brief Prints the array
+void traverse()
+{
+    for (int i = 0; i <= end; i++)
+        printf("%d ", array[i]);
+    printf("\n");
+}
+
+/// @brief Search for item linearly.
+/// @param item Item to be search.
+/// @return Index of item, if found. Else -1.
+int linearSearch(int item)
+{
+    for (int i = 0; i <= end; i++)
+        if (array[i] == item) // item match
+            return i;         // return index
+
+    return -1; // not found
+}
+
+void selectionSort()
+{
+    int min;
+    for (int i = 0; i <= end; i++)
+    {
+        min = i; // assume as minimum
+
+        for (int j = i + 1; j <= end; j++)
+            if (array[j] < array[min]) // smaller element found,
+                min = j;               // update min.
+
+        // swap minimum element
+        int temp = array[i];
+        array[i] = array[min];
+        array[min] = temp;
+    }
+}
+
+/// @brief Insert new element in the array.
+/// @param elem Element to be inserted.
+/// @param index Insert at this index.
+void insertElemAt(int elem, int index)
+{
+    // Array is Full
+    if (end == N - 1)
+    {
+        printf("Error: Max Size Reached.\n");
+        return;
+    }
+
+    // Invalid index
+    else if (index < 0)
+    {
+        printf("Error: Invalid Index(%d).\n", index);
+        return;
+    }
+    // Insert at End (no shift required)
+    if (index > end)
+        array[++end] = elem;
+
+    // Insert at Index (shift required)
+    else
+    {
+        rShift(index);       // make space for new element
+        array[index] = elem; // insert at index
+        end++;               // update end
+    }
+}
+
+/// @brief Remove Element from the array.
+/// @param index Remove from this index.
+void removeElemFrom(int index)
+{
+    // Array Empty
+    if (end == -1)
+    {
+        printf("Error: Already Empty.\n");
+        return;
+    }
+
+    // Invalid index
+    else if (index < 0 || index > end)
+    {
+        printf("Error: Invalid Index(%d).\n", index);
+        return;
+    }
+
+    // Shift left if index is not end
+    if (index != end)
+        lShift(index);
+
+    end--;
 }
 // End - Definitions
